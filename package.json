@@ -1,0 +1,22 @@
+{
+  "name": "colas",
+  "version": "1.0.0",
+  "description": "Comunicación entre procesos",
+  "main": "p1",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/altamiranoesdras/colas.git"
+  },
+  "keywords": [
+    "colas"
+  ],
+  "author": "Esdras Altamirano,Eder Castañeda",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/altamiranoesdras/colas/issues"
+  },
+  "homepage": "https://github.com/altamiranoesdras/colas#readme"
+}
