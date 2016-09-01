@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <sys/msg.h>
+#include <errno.h>
 #include <stdlib.h>
 
 // estructura enviar mensaje de menu
@@ -28,10 +30,32 @@ typedef struct s2
 int main(){
 
 	int p1,p2,opcion,a,n;
-	char p3;
+	int p3;
+	
+	key_t Clave1;
+	int Id_Cola_Mensajes;
+	Mensaje1 Un_Mensaje;
+
 
 	
 	do{
+	
+	//obtiene clave  para la cola
+	Clave1 = ftok ("/bin/ls", 30);
+	if (Clave1 == (key_t)-1)
+	{
+		printf("Error al obtener clave para cola mensajes");
+		exit(-1);
+	}
+    // creamos la cola de mensajes
+	Id_Cola_Mensajes = msgget (Clave1, 0600 | IPC_CREAT);
+	if (Id_Cola_Mensajes == -1)
+	{
+		printf("Error al obtener identificador para cola mensajes");
+		exit (-1);
+	}	
+		
+		
 		system("clear");
 		printf("   MENU    \n\n");
 		printf("1) SUMA \n");
@@ -51,8 +75,22 @@ int main(){
 			printf(" SUMA \n");
 			printf("ingrese operando 1 : ");scanf("%d",& p1);
 			printf("ingrese operando 2 : ");scanf("%d",& p2);
-			printf("desea aproximar s = si n = no  : ");scanf("%s",& p3);
-			a = getchar();
+			printf("desea aproximar 1 = si 2 = no  : ");scanf("%d\n\n",& p3);
+			printf("operando 1 : %d  , operando 2 : %d , aproximara : %d",p1,p2,p3);			
+			// se llenan los datos del mensaje
+			Un_Mensaje.Id_Mensaje = 1;
+			Un_Mensaje.operacion = opcion;
+			Un_Mensaje.operador1 = p1;
+			Un_Mensaje.operador2 = p2;
+			Un_Mensaje.aproximacion = p3 ;
+			strcpy (Un_Mensaje.Mensaje, "suma");
+			//se envia el mensaje
+			msgsnd (Id_Cola_Mensajes, (struct msgbuf *)&Un_Mensaje, 
+			sizeof(Un_Mensaje.operador1)+sizeof(Un_Mensaje.operador2)+sizeof(Un_Mensaje.aproximacion)+sizeof(Un_Mensaje.Mensaje)+sizeof(Un_Mensaje.operacion), 
+			IPC_NOWAIT);
+
+			
+			getchar();
 			break;
 
 
@@ -62,8 +100,19 @@ int main(){
 			printf(" RESTA \n");
 			printf("ingrese operando 1 : ");scanf("%d",& p1);
 			printf("ingrese operando 2 : ");scanf("%d",& p2);
-			printf("desea aproximar s = si n = no  : ");scanf("%s",& p3);
-			a = getchar();
+			printf("desea aproximar 1 = si 2 = no  : ");scanf("%d",& p3);
+			// se llenan los datos del mensaje
+			Un_Mensaje.Id_Mensaje = 1;
+			Un_Mensaje.operacion = opcion;
+			Un_Mensaje.operador1 = p1;
+			Un_Mensaje.operador2 = p2;
+			Un_Mensaje.aproximacion = p3 ;
+			strcpy (Un_Mensaje.Mensaje, "RESTA");
+			//se envia el mensaje
+			msgsnd (Id_Cola_Mensajes, (struct msgbuf *)&Un_Mensaje, 
+			sizeof(Un_Mensaje.operador1)+sizeof(Un_Mensaje.operador2)+sizeof(Un_Mensaje.aproximacion)+sizeof(Un_Mensaje.Mensaje)+sizeof(Un_Mensaje.operacion), 
+			IPC_NOWAIT);
+
 			break;
 
 
@@ -73,8 +122,19 @@ int main(){
 			printf(" MULTIPLICACION \n");
 			printf("ingrese operando 1 : ");scanf("%d",& p1);
 			printf("ingrese operando 2 : ");scanf("%d",& p2);
-			printf("desea aproximar s = si n = no  : ");scanf("%s",& p3);
-			a = getchar();
+			printf("desea aproximar 1 = si 2 = no  : ");scanf("%d",& p3);
+			// se llenan los datos del mensaje
+			Un_Mensaje.Id_Mensaje = 1;
+			Un_Mensaje.operacion = opcion;
+			Un_Mensaje.operador1 = p1;
+			Un_Mensaje.operador2 = p2;
+			Un_Mensaje.aproximacion = p3 ;
+			strcpy (Un_Mensaje.Mensaje, "MULTIPLICACION");
+			//se envia el mensaje
+			msgsnd (Id_Cola_Mensajes, (struct msgbuf *)&Un_Mensaje, 
+			sizeof(Un_Mensaje.operador1)+sizeof(Un_Mensaje.operador2)+sizeof(Un_Mensaje.aproximacion)+sizeof(Un_Mensaje.Mensaje)+sizeof(Un_Mensaje.operacion), 
+			IPC_NOWAIT);
+
 			break;
 
 
@@ -84,8 +144,18 @@ int main(){
 			printf(" DIVICION \n");
 			printf("ingrese operando 1 : ");scanf("%d",& p1);
 			printf("ingrese operando 2 : ");scanf("%d",& p2);
-			printf("desea aproximar s = si n = no  : ");scanf("%s",& p3);
-			a = getchar();
+			printf("desea aproximar 1 = si 2 = no  : ");scanf("%d",& p3);
+			// se llenan los datos del mensaje
+			Un_Mensaje.Id_Mensaje = 1;
+			Un_Mensaje.operacion = opcion;
+			Un_Mensaje.operador1 = p1;
+			Un_Mensaje.operador2 = p2;
+			Un_Mensaje.aproximacion = p3 ;
+			strcpy (Un_Mensaje.Mensaje, "DIVICION");
+			//se envia el mensaje
+			msgsnd (Id_Cola_Mensajes, (struct msgbuf *)&Un_Mensaje, 
+			sizeof(Un_Mensaje.operador1)+sizeof(Un_Mensaje.operador2)+sizeof(Un_Mensaje.aproximacion)+sizeof(Un_Mensaje.Mensaje)+sizeof(Un_Mensaje.operacion), 
+			IPC_NOWAIT);
 
 			break;
 			
@@ -103,6 +173,9 @@ int main(){
 			}
 			break;
 
+			case 6:
+			
+			break;
 			
 			 default:
 				system("clear");
@@ -112,6 +185,6 @@ int main(){
 			
 		}
 
-	}while(opcion!=5);
+	}while(opcion!=6);
 
 }
