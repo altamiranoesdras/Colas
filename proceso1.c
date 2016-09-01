@@ -27,7 +27,7 @@ typedef struct s2
 
 int main(){
 
-	int p1,p2,opcion,a;
+	int p1,p2,opcion,a,n;
 	char p3;
 
 	
@@ -38,7 +38,8 @@ int main(){
 		printf("2) RESTA \n");
 		printf("3) MULTIPLICACION \n");
 		printf("4) DIVICION \n");
-		printf("5) SALIR \n");
+		printf("5) MOSTRAR N CANTIDAD DE RESULTADOS \n");
+		printf("6) SALIR \n");
 		printf("-_-_-_-_-_-_-_-_-_-\n");
 		printf("elige tu opcion : ");
 		scanf("%d",&opcion);
@@ -87,14 +88,28 @@ int main(){
 			a = getchar();
 
 			break;
+			
+			
+			case 5 :
 
-			/*
-			case default:
+			system("clear");
+			printf(" VER RESULTADOS \n\n");
+			printf(" ingrese el no de resultados que desea ver:  \n");
+		    scanf("%d",&n);
+			int i;
+			for(i=0;i<=n;i++){
+			
+				
+			}
+			break;
+
+			
+			 default:
 				system("clear");
 				printf("OPCION NO VALIDA");
 				a =getchar();
-			break;
-			*/
+			
+			
 		}
 
 	}while(opcion!=5);
