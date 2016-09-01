@@ -7,6 +7,8 @@
 #include <errno.h>
 
 
+
+
 //
 // Estructura para los mensajes que se quieren enviar y/o recibir. Deben llevar
 // obligatoriamente como primer campo un long para indicar un identificador
