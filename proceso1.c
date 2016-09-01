@@ -1,9 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// estructura enviar mensaje de menu
+typedef struct s1
+{
+	long Id_Mensaje;
+	int operador1;
+	int operador2;
+	int operacion;
+	int aproximacion;
+	char Mensaje[10];
+}Mensaje1;
+
+// estructura recibir mensaje del proceso
+
+
+typedef struct s2
+{
+	long Id_Mensaje;
+	int resultado;
+	int operacion;
+	char Mensaje[10];
+} Mensaje2;
+
+
+
 int main(){
+
 	int p1,p2,opcion,a;
 	char p3;
+
 	
 	do{
 		system("clear");
