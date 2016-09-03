@@ -3,12 +3,13 @@
 #include <errno.h>
 #include <stdlib.h>
 
+
 // estructura enviar mensaje de menu
 typedef struct s1
 {
 	long Id_Mensaje;
-	int operador1;
-	int operador2;
+	float operador1;
+	float operador2;
 	int operacion;
 	int aproximacion;
 	char Mensaje[10];
@@ -20,28 +21,27 @@ typedef struct s1
 typedef struct s2
 {
 	long Id_Mensaje;
-	int resultado;
+	float resultado;
 	int operacion;
 	char Mensaje[10];
 } Mensaje2;
 
 
-
 int main(){
 
-	int p1,p2,opcion,a,n;
-	int p3;
-	
+	int opcion,a,n;
+	int p3,od;
+	float p1,p2;
 	key_t Clave1;
 	int Id_Cola_Mensajes;
 	Mensaje1 Un_Mensaje;
-
+	Mensaje2 respuesta;
 
 	
 	do{
 	
 	//obtiene clave  para la cola
-	Clave1 = ftok ("/bin/ls", 30);
+	Clave1 = ftok ("/bin/ls", 33);
 	if (Clave1 == (key_t)-1)
 	{
 		printf("Error al obtener clave para cola mensajes");
@@ -73,10 +73,10 @@ int main(){
 			case 1 :
 			system("clear");
 			printf(" SUMA \n");
-			printf("ingrese operando 1 : ");scanf("%d",& p1);
-			printf("ingrese operando 2 : ");scanf("%d",& p2);
+			printf("ingrese operando 1 : ");scanf("%f",& p1);
+			printf("ingrese operando 2 : ");scanf("%f",& p2);
 			printf("desea aproximar 1 = si 2 = no  : ");scanf("%d\n\n",& p3);
-			printf("operando 1 : %d  , operando 2 : %d , aproximara : %d",p1,p2,p3);			
+			printf("operando 1 : %f  , operando 2 : %f , aproximara : %d",p1,p2,p3);			
 			// se llenan los datos del mensaje
 			Un_Mensaje.Id_Mensaje = 1;
 			Un_Mensaje.operacion = opcion;
@@ -98,9 +98,10 @@ int main(){
 
 			system("clear");
 			printf(" RESTA \n");
-			printf("ingrese operando 1 : ");scanf("%d",& p1);
-			printf("ingrese operando 2 : ");scanf("%d",& p2);
-			printf("desea aproximar 1 = si 2 = no  : ");scanf("%d",& p3);
+			printf("ingrese operando 1 : ");scanf("%f",& p1);
+			printf("ingrese operando 2 : ");scanf("%f",& p2);
+			printf("desea aproximar 1 = si 2 = no  : ");scanf("%d\n\n",& p3);
+			printf("operando 1 : %f  , operando 2 : %f , aproximara : %d",p1,p2,p3);	
 			// se llenan los datos del mensaje
 			Un_Mensaje.Id_Mensaje = 1;
 			Un_Mensaje.operacion = opcion;
@@ -120,9 +121,10 @@ int main(){
 
 			system("clear");
 			printf(" MULTIPLICACION \n");
-			printf("ingrese operando 1 : ");scanf("%d",& p1);
-			printf("ingrese operando 2 : ");scanf("%d",& p2);
-			printf("desea aproximar 1 = si 2 = no  : ");scanf("%d",& p3);
+			printf("ingrese operando 1 : ");scanf("%f",& p1);
+			printf("ingrese operando 2 : ");scanf("%f",& p2);
+			printf("desea aproximar 1 = si 2 = no  : ");scanf("%d\n\n",& p3);
+			printf("operando 1 : %f  , operando 2 : %f , aproximara : %d",p1,p2,p3);	
 			// se llenan los datos del mensaje
 			Un_Mensaje.Id_Mensaje = 1;
 			Un_Mensaje.operacion = opcion;
@@ -142,9 +144,10 @@ int main(){
 
 			system("clear");
 			printf(" DIVICION \n");
-			printf("ingrese operando 1 : ");scanf("%d",& p1);
-			printf("ingrese operando 2 : ");scanf("%d",& p2);
-			printf("desea aproximar 1 = si 2 = no  : ");scanf("%d",& p3);
+			printf("ingrese operando 1 : ");scanf("%f",& p1);
+			printf("ingrese operando 2 : ");scanf("%f",& p2);
+			printf("desea aproximar 1 = si 2 = no  : ");scanf("%d\n\n",& p3);
+			printf("operando 1 : %f  , operando 2 : %f , aproximara : %d",p1,p2,p3);	
 			// se llenan los datos del mensaje
 			Un_Mensaje.Id_Mensaje = 1;
 			Un_Mensaje.operacion = opcion;
@@ -161,16 +164,24 @@ int main(){
 			
 			
 			case 5 :
-
+			
+		
 			system("clear");
 			printf(" VER RESULTADOS \n\n");
 			printf(" ingrese el no de resultados que desea ver:  \n");
 		    scanf("%d",&n);
-			int i;
+			
+			msgrcv (Id_Cola_Mensajes, (struct msgbuf *)&respuesta,
+			sizeof(respuesta.resultado) + sizeof(respuesta.Mensaje) +sizeof(respuesta.operacion), 
+			2, 0);
+			
+			
+			
+			/*int i;
 			for(i=0;i<=n;i++){
 			
 				
-			}
+			}*/
 			break;
 
 			case 6:
