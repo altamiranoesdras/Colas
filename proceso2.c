@@ -29,7 +29,6 @@ int main(){
 	//printf("=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
 	
 	float p1,p2,p3;
-	int o;
 	char aproxStr[2];
 	
 	key_t Clave1;
