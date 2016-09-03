@@ -2,6 +2,7 @@
 #include <sys/msg.h>
 #include <errno.h>
 #include <stdlib.h>
+#include <math.h>
 
 // estructura enviar mensaje de menu
 typedef struct s1
@@ -76,11 +77,12 @@ main(){
 	//	continuaría ejecutándose.
 	//
 	
-	
+	while(1){
 	
 	msgrcv (Id_Cola_Mensajes, (struct msgbuf *)&Un_Mensaje, 
 			sizeof(Un_Mensaje.operador1)+sizeof(Un_Mensaje.operador2)+sizeof(Un_Mensaje.aproximacion)+sizeof(Un_Mensaje.Mensaje)+sizeof(Un_Mensaje.operacion), 
 			1, 0);
+			
 	printf("000000---00000\n");
 	printf("Recibido mensaje tipo 1\n");
 	printf("operador 1 = %f\n",Un_Mensaje.operador1);
@@ -92,12 +94,17 @@ main(){
     p1=Un_Mensaje.operador1;
     p2=Un_Mensaje.operador2;
     o=Un_Mensaje.operacion;
-	
+	printf("--> 	%f\n",o);
 	switch(o){
+	
 	case 1:
 	p3=p1+p2;
 	sd.Id_Mensaje=2;
+	if(Un_Mensaje.aproximacion==1){
+	//p3=round(p3);
+	}
 	sd.resultado =p3;
+	printf("resultado  %f\n " ,p3);
 	sd.operacion=1;
 	strcpy (sd.Mensaje, "suma");
 	
@@ -110,6 +117,9 @@ main(){
 	case 2:
 	p3=p1-p2;
 	sd.Id_Mensaje=2;
+	if(Un_Mensaje.aproximacion==1){
+	//p3 = round (p3);
+	}
 	sd.resultado =p3;
 	sd.operacion=2;
 	strcpy (sd.Mensaje, "resta");
@@ -122,6 +132,9 @@ main(){
 	case 3:
 	p3=p1*p2;
 	sd.Id_Mensaje=2;
+	if(Un_Mensaje.aproximacion==1){
+	//p3= round (p3);
+	}
 	sd.resultado =p3;
 	sd.operacion=3;
 	strcpy (sd.Mensaje, "multiplicacion");
@@ -135,6 +148,9 @@ main(){
 	case 4:
 	p3=p1/p2;
 	sd.Id_Mensaje=2;
+	if(Un_Mensaje.aproximacion==1){
+	//p3=round(p3);
+	}
 	sd.resultado =p3;
 	sd.operacion=4;
 	strcpy (sd.Mensaje, "divicion");
@@ -147,6 +163,8 @@ main(){
 	
 	
 	}
+  }
 }
+
 
 

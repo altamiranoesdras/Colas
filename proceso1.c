@@ -56,7 +56,7 @@ int main(){
 	}	
 		
 		
-		system("clear");
+		
 		printf("   MENU    \n\n");
 		printf("1) SUMA \n");
 		printf("2) RESTA \n");
@@ -170,12 +170,39 @@ int main(){
 			printf(" VER RESULTADOS \n\n");
 			printf(" ingrese el no de resultados que desea ver:  \n");
 		    scanf("%d",&n);
+			int i;
+			for(i=0;i<=n;i++){
 			
 			msgrcv (Id_Cola_Mensajes, (struct msgbuf *)&respuesta,
 			sizeof(respuesta.resultado) + sizeof(respuesta.Mensaje) +sizeof(respuesta.operacion), 
 			2, 0);
+			printf("==================================================\n");
+			printf("operacion :: \n");
+			switch(respuesta.operacion){
+			
+			case 1:
+			printf("suma\n");
+			break ;
+			
+			case 2:
+			printf("resta\n");
+			break ;
+			
+			case 3:
+			printf("multiplicacion\n");
+			break ;
+			
+			case 4:
+			printf("divicion\n");
+			break ;
 			
 			
+			}
+			
+			printf("resultado : %f\n",respuesta.resultado);
+			printf("mensaje ::  %s\n",respuesta.Mensaje);
+		}
+		
 			
 			/*int i;
 			for(i=0;i<=n;i++){
